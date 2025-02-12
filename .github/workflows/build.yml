@@ -39,7 +39,7 @@ jobs:
 
     # 6. Upload the generated image as an artifact
     - name: Upload Mu-lavender.img as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Mu-lavender-img
         path: Mu-Silicium/Mu-lavender.img

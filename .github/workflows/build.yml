@@ -29,7 +29,7 @@ jobs:
     - name: Run setup_env.sh with APT
       run: |
         cd Mu-Silicium
-        sudo ./setup_env.sh -p APT
+        sudo ./setup_env.sh -p apt
 
     # 5. Build the UEFI image
     - name: Build the UEFI image

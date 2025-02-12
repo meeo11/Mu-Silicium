@@ -1,0 +1,45 @@
+name: Build Mu-Silicium UEFI Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Git clone
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    # 2. Clone the Mu-Silicium repo
+    - name: Clone Mu-Silicium repository
+      run: git clone https://github.com/Project-Silicium/Mu-Silicium.git
+
+    # 3. Navigate into the cloned repo
+    - name: Change directory to Mu-Silicium
+      run: cd Mu-Silicium
+
+    # 4. Run the setup script with APT
+    - name: Run setup_env.sh with APT
+      run: |
+        cd Mu-Silicium
+        ./setup_env.sh -p APT
+
+    # 5. Build the UEFI image
+    - name: Build the UEFI image
+      run: |
+        cd Mu-Silicium
+        ./build_uefi.sh -d lavender -r DEBUG
+
+    # 6. Upload the generated image as an artifact
+    - name: Upload Mu-lavender.img as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mu-lavender-img
+        path: Mu-Silicium/Mu-lavender.img
